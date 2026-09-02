@@ -1,4 +1,16 @@
-# Poke
+## Tecnologías y decisiones tomadas
+
+La aplicación fue realizada con Vue 3 usando Composition API y `<script setup>`, principalmente porque me pareció una forma más ágil de trabajar los componentes mientras iba desarrollando la aplicación, aunque me desenvuelvo mejor usando option API.
+
+Al principio pensé en usar Vuetify para la parte visual, pero al final decidí hacerlo con Tailwind CSS porque me daba más libertad para modificar los estilos y a parte traia consigo algunas animaciones que mas adelante fueron implementadas.
+
+Para las peticiones a la API utilicé Axios y para manejar los Pokémon favoritos se implementó un store, con el objetivo de mantener esa información disponible en las diferentes vistas.
+
+En cuanto al diseño, se tomó como base el Figma entregado, pero también se agregaron ideas propias inspiradas en tendencias de diseño actual (https://www.figma.com/es-la/resource-library/tendencias-diseno-web/), como el uso de elementos grandes y llamativos (en la vista de detalle del Pokémon). También se agregaron pequeñas animaciones para que la aplicación se sintiera un poco más dinámica.
+
+Para la carga de información se implementó paginación haciendo uso del offset y limit propuesto para la API pokédex, evitando traer todos los Pokémon al mismo tiempo y haciendo que la navegación fuera más fluida.
+
+# Pokédex
 
 This template should help get you started developing with Vue 3 in Vite.
 
