@@ -6,13 +6,22 @@ const router = createRouter({
     {
       path: '/',
       name: 'pokedex',
-      component: () => import('@/views/principalMain.vue')
+      component: () => import('@/views/principalMain.vue'),
     },
 
     {
       path: '/favoritos',
       name: 'favoritos',
-      component: () => import('@/views/favoritesList.vue')
+      component: () => import('@/views/favoritesList.vue'),
+    },
+    {
+      path: '/pokemon/:name/:id',
+      name: 'detalle',
+      component: () => import('@/views/detailPokemon.vue'),
+    },
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: '/',
     },
   ],
 })

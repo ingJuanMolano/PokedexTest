@@ -4,7 +4,7 @@ import { RouterLink } from 'vue-router'
 
 <template>
   <header
-    class="w-full bg-white shadow-sm px-5 py-5 flex items-center justify-between rounded-b-3xl md:px-8 md:bg-transparent md:shadow-none md:rounded-none"
+    class="w-full bg-white shadow-sm px-5 py-5 flex items-center justify-between rounded-b-3xl md:px-8 md:bg-transparent md:backdrop-blur-[3px] md:border-b md:border-black md:shadow-none"
   >
     <RouterLink to="/" class="flex items-center gap-3">
       <img src="@/images/Loader.png" alt="Pokeball" style="width: 45px" />

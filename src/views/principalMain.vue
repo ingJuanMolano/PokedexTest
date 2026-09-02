@@ -5,7 +5,10 @@ import PokemonCard from '@/components/pokemonCard.vue'
 import loaderImage from '@/images/Loader.png'
 import Magikarp from '@/images/magikarp.png'
 import { nextTick } from 'vue'
+import { useRoute, useRouter } from 'vue-router'
 
+const route = useRoute()
+const router = useRouter()
 const pokemons = ref([])
 const page = ref(1)
 const totalPokemones = ref(0)
@@ -17,8 +20,14 @@ const urlPrev = ref()
 const limit = ref(5)
 const errorFetch = ref('')
 const totalPages = ref(0)
+const currentOffset = ref(0)
 
 onMounted(async () => {
+  if (route.query.offset && route.query.limit) {
+    limit.value = Number(route.query.limit)
+    offsetNext.value = Number(route.query.offset)
+    offsetBefore.value = Number(route.query.offset)
+  }
   await fetchPokemons()
 })
 watch(page, (newValue, oldValue) => {
@@ -64,7 +73,13 @@ async function fetchPokemons(dir) {
       dir == 'next' ? offsetNext.value : offsetBefore.value,
       limit.value,
     )
-
+    currentOffset.value = dir == 'next' ? offsetNext.value : offsetBefore.value
+    router.replace({
+      query: {
+        offset: currentOffset.value,
+        limit: limit.value,
+      },
+    })
     const pokemonList = response.data.results
 
     totalPokemones.value = response.data.count
@@ -131,9 +146,12 @@ function getTotalPages() {
       <p class="text-gray-500 mt-3 text-lg">
         Descubre sus tipos, características y encuentra tus favoritos.
       </p>
+      <p class="text-red-400 mt-3 text-md">
+        (¡Pincha la imagen de cualquier pokémon para ver mas detalles!)
+      </p>
     </div>
     <div class="flex justify-center items-center p-6" v-for="pokemon in pokemons" :key="pokemon.id">
-      <PokemonCard :pokemon="pokemon" />
+      <PokemonCard :pokemon="pokemon" :limit="limit" :offset="currentOffset" :from="'pokemon'" />
     </div>
     <div class="flex flex-col md:flex-row items-center justify-center gap-2 pb-6">
       <div class="flex justify-center items-center">
@@ -225,7 +243,7 @@ function getTotalPages() {
 
     <p class="mt-3 text-gray-500 max-w-md">
       No pudimos cargar la información en este momento. Verifica tu conexión o intenta nuevamente
-      más tarde..
+      más tarde...
     </p>
 
     <button

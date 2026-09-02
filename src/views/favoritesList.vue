@@ -14,9 +14,12 @@ const { favorites } = storeToRefs(pokemonStore)
     <span class="text-md font-bold text-red-400 uppercase"> Favoritos ❤️</span>
 
     <h1 class="text-5xl font-black mt-2">Explora tus Pokémon favoritos</h1>
+    <p class="text-red-700 mt-3 text-md">
+        (¡Pincha la imagen de cualquier pokémon para ver mas detalles!)
+      </p>
   </div>
   <div class="flex justify-center items-center p-6" v-for="pokemon in favorites" :key="pokemon.id">
-    <PokemonCard :pokemon="pokemon" :isInFavorite="true"/>
+    <PokemonCard :pokemon="pokemon" :isInFavorite="true" :from="'favoritos'"/>
   </div>
   <div
     v-if="favorites.length === 0"

@@ -2,8 +2,10 @@
 import { ref, computed } from 'vue'
 import { defineProps } from 'vue'
 import { usePokemonStore } from '@/stores/pokemon'
+import { useRouter } from 'vue-router'
 
 const pokemonStore = usePokemonStore()
+const router = useRouter()
 const copied = ref('')
 
 const props = defineProps({
@@ -18,6 +20,18 @@ const props = defineProps({
   isInFavorite: {
     type: Boolean,
     default: false,
+  },
+  limit: {
+    type: Number,
+    default: 0,
+  },
+  offset: {
+    type: Number,
+    default: 0,
+  },
+  from: {
+    type: String,
+    default: 'pokemon',
   },
 })
 
@@ -66,7 +80,7 @@ function setFavorite() {
 function formatStat(stat) {
   const names = {
     hp: ['HP', 'text-red-500'],
-    attack: ['ATK', 'text-yellow-500'],
+    attack: ['ATK', 'text-orange-700'],
     defense: ['DEF', 'text-blue-500'],
     'special-attack': ['SP.ATK', 'text-purple-500'],
     'special-defense': ['SP.DEF', 'text-pink-500'],
@@ -74,6 +88,27 @@ function formatStat(stat) {
   }
 
   return names[stat] || ['???', 'text-gray-500']
+}
+function goDetail() {
+  const query =
+    props.from === 'pokemon'
+      ? {
+          offset: props.offset,
+          limit: props.limit,
+          from: props.from,
+        }
+      : {
+          from: props.from,
+        }
+
+  router.push({
+    name: 'detalle',
+    params: {
+      name: props.pokemon.name,
+      id: props.pokemon.id,
+    },
+    query,
+  })
 }
 </script>
 
@@ -142,7 +177,9 @@ function formatStat(stat) {
 
     <!-- Stats -->
 
-    <div class="grid grid-cols-3 gap-x-6 gap-y-3 mt-4">
+    <div
+      class="grid grid-cols-3 gap-x-6 gap-y-3 bg-white/20 backdrop-blur rounded-3xl p-4 w-full md:w-auto items-center justify-center"
+    >
       <div v-for="stat in pokemon.stats" :key="stat.stat.name" class="text-center">
         <p class="text-xs font-bold text-black/40 uppercase" :class="formatStat(stat.stat.name)[1]">
           {{ formatStat(stat.stat.name)[0] }}
@@ -155,12 +192,20 @@ function formatStat(stat) {
     </div>
 
     <!-- imagen -->
-
-    <img
-      :src="pokemonImage"
-      :alt="pokemon.name"
-      class="w-40 object-contain drop-shadow-xl transition hover-heartbeat z-10"
-    />
+    <div class="group relative">
+      <img
+        :src="pokemonImage"
+        @click="goDetail"
+        :alt="pokemon.name"
+        class="group w-40 object-contain drop-shadow-xl transition hover-heartbeat z-10 cursor-pointer"
+      />
+      <!-- Tooltip -->
+      <span
+        class="absolute -top-1 left-1/2 -translate-x-1/2 opacity-0 group-hover:opacity-100 transition duration-200 pointer-events-none bg-gray-500 text-white text-xs font-semibold px-3 py-1 rounded-lg whitespace-nowrap"
+      >
+        Ver detalles
+      </span>
+    </div>
 
     <!-- alerta copiado -->
     <span
