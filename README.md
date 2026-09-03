@@ -10,7 +10,7 @@ También se utilizó ESLint como herramienta de apoyo para mantener un código m
 
 En cuanto al diseño, se tomó como base el Figma entregado, pero también se agregaron ideas propias inspiradas en tendencias de diseño actual (https://www.figma.com/es-la/resource-library/tendencias-diseno-web/), como el uso de elementos grandes y llamativos (en la vista de detalle del Pokémon). También se agregaron pequeñas animaciones para que la aplicación se sintiera un poco más dinámica.
 
-Para la carga de información se implementó paginación haciendo uso del offset y limit propuesto para la API pokédex, evitando traer todos los Pokémon al mismo tiempo y haciendo que la navegación fuera más fluida.
+Para la carga de información se implementó paginación hecha a mano bastante sencilla haciendo uso del offset y limit propuesto para la API pokédex, evitando traer todos los Pokémon al mismo tiempo y haciendo que la navegación fuera más fluida.
 
 # Pokédex
 
