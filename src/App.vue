@@ -8,14 +8,14 @@ const route = useRoute()
 
 const backgroundClass = computed(() => {
   if (route.path === '/favoritos') {
-    return 'favorites-bg'
+    return 'favoritos-bg'
   }
 
   if (route.path.startsWith('/pokemon')) {
-    return 'detail-bg'
+    return 'detalle-bg'
   }
 
-  return 'home-bg'
+  return 'pokemon-bg'
 })
 </script>
 

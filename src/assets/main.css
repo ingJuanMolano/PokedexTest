@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-.home-bg {
+.pokemon-bg {
   background-image: url('@/images/fondo.png');
   background-size: 100% auto;
   background-position: top center;
@@ -10,7 +10,7 @@
 }
 
 
-.favorites-bg {
+.favoritos-bg {
   background-image: url('@/images/fondoRojo.png');
   background-size: 100% auto;
   background-position: top center;
@@ -20,7 +20,7 @@
 }
 
 
-.detail-bg {
+.detalle-bg {
   background-image: url('@/images/fondoMorado.png');
   background-size: cover;
   background-position: center;
